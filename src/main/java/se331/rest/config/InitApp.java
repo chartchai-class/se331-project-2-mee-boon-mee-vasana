@@ -1,16 +1,17 @@
 package se331.rest.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 import se331.rest.entity.Country;
 import se331.rest.repository.CountryRepository;
-
+@Component
+@RequiredArgsConstructor
 public class InitApp implements ApplicationListener<ApplicationReadyEvent>{
     final CountryRepository countryRepository;
 
-    public InitApp(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
+    
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
