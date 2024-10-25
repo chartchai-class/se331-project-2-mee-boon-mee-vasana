@@ -27,7 +27,7 @@ public class CountryController {
             @RequestParam(value = "name", required = false) String name) {
 
         // Set default values if not provided
-        perPage = (perPage == null) ? 3 : perPage;
+        perPage = (perPage == null) ? 50 : perPage;
         page = (page == null) ? 1 : page;
 
         // Fetch countries with or without filtering by name
