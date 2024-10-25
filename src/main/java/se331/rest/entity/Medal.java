@@ -3,25 +3,28 @@ package se331.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class SportDetail {
+public class Medal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
-    String sportName;
-    int rank;
-    String medalsUrl;
+
+    int goldCount;
+    int silverCount;
+    int bronzeCount;
+
     @ManyToOne
     @JoinColumn(name = "country_id")
     Country country;
-    @OneToMany(mappedBy = "sportDetail")
-    List<Medal> medals;
-}
 
+    @ManyToOne
+    @JoinColumn(name = "sport_detail_id")
+    SportDetail sport;
+
+}

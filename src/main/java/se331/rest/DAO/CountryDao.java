@@ -6,8 +6,8 @@ import se331.rest.entity.Country;
 import java.util.List;
 
 public interface CountryDao {
-    Country getCountry(Long id);
+    Page<Country> getAllCountries(Integer pageSize, Integer page);
+    Country getCountryById(Long id);
     Country saveCountry(Country country);
-
-    Page<Country> getCountries(Integer pageSize, Integer page);
+    void deleteCountry(Long id);
 }

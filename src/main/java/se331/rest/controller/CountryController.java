@@ -20,22 +20,18 @@ public class CountryController {
     final CountryService countryService;
     HttpHeaders headers = new HttpHeaders();
     @GetMapping("countries")
-    public ResponseEntity<?> getAllCountries(@RequestParam(value = "_limit", required = false) Integer perPage,
-                                             @RequestParam(value = "_page", required = false) Integer page) {
+    public ResponseEntity<List<Country>> getAllCountries(@RequestParam(value = "_limit", required = false) Integer perPage,
+                                                         @RequestParam(value = "_page", required = false) Integer page) {
 
         perPage = perPage == null ? 3 : perPage;
         page = page == null ? 1 : page;
-        Page<Country> output = countryService.getCountries(perPage,page);
-        HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.set("x-total-count", String.valueOf(output));
-        try {
-            return new ResponseEntity<>(output,responseHeader, HttpStatus.OK);
-        } catch (IndexOutOfBoundsException ex) {
-            return ResponseEntity.ok(output);
-        }
-//        return ResponseEntity.ok(output);
+        Page<Country> output = countryService.getCountries(perPage, page);
 
+        // ดึงเฉพาะข้อมูล content ออกมา
+        List<Country> content = output.getContent();
 
+        // ส่งเฉพาะ content กลับไปใน response
+        return new ResponseEntity<>(content, HttpStatus.OK);
     }
 
 }

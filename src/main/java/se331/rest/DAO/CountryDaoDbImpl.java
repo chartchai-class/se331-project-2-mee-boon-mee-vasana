@@ -18,8 +18,14 @@ import java.util.List;
 public class CountryDaoDbImpl implements CountryDao  {
     final CountryRepository countryRepository;
 
+
     @Override
-    public Country getCountry(Long id) {
+    public Page<Country> getAllCountries(Integer pageSize, Integer page) {
+        return countryRepository.findAll(PageRequest.of(page -1, pageSize));
+    }
+
+    @Override
+    public Country getCountryById(Long id) {
         return countryRepository.findById(id).orElse(null);
     }
 
@@ -28,10 +34,8 @@ public class CountryDaoDbImpl implements CountryDao  {
         return countryRepository.save(country);
     }
 
-
-
     @Override
-    public Page<Country> getCountries(Integer pageSize, Integer page) {
-        return countryRepository.findAll(PageRequest.of(page-1, pageSize));
+    public void deleteCountry(Long id) {
+            countryRepository.deleteById(id);
     }
 }

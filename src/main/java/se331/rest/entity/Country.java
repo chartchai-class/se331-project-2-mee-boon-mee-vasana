@@ -1,10 +1,9 @@
 package se331.rest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -21,9 +20,11 @@ public class Country {
      String name;
      String nocCode;
      String flagUrl;
-     String description;
-     int gold;
-     int silver;
-     int bronze;
-     int total;
+     String basicInfo;
+
+     @OneToMany(mappedBy = "country")
+     List<SportDetail> detail;
+
+     @OneToMany(mappedBy = "country")
+     List<Medal> medals;
 }
