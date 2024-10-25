@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,5 +18,5 @@ public class SportDetailDTO {
      String medalsUrl;
      Long countryId;       // เชื่อมโยงกับประเทศ
      String countryName;   // ชื่อประเทศที่เกี่ยวข้อง
-
+     List<MedalDTO> medals;
 }

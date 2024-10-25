@@ -33,4 +33,9 @@ public class MedalDaoImpl implements MedalDao {
     public void deleteMedal(Long id) {
        medalRepository.deleteById(id);
     }
+
+    @Override
+    public List<Medal> getAllMedals() {
+        return medalRepository.findAll();
+    }
 }

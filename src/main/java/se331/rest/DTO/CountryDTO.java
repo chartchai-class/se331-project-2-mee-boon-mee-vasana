@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,6 +19,6 @@ public class CountryDTO {
      String flagUrl;
      String basicInfo;
 
-     List<SportDetailDTO> sportDetails;  // เชื่อมโยงกับกีฬาต่าง ๆ
+     List<CountryOwnSportDTO> ownSports = new ArrayList<>();  // เชื่อมโยงกับกีฬาต่าง ๆ
      List<MedalDTO> medals;              // เชื่อมโยงกับเหรียญที่ประเทศได้รับ
 }

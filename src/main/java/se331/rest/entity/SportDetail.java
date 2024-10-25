@@ -3,6 +3,7 @@ package se331.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,16 +19,16 @@ public class SportDetail {
 
     String sportName;
 
-    @Column(name = "`rank_position`") // Renamed to avoid conflicts with SQL reserved words
     int rankPosition;
 
     String medalsUrl;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
     Country country;
 
+
     @OneToMany(mappedBy = "sportDetail", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Medal> medals;
+    @Builder.Default
+    List<Medal> medals = new ArrayList<>();
 }
 

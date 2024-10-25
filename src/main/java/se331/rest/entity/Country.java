@@ -3,6 +3,7 @@ package se331.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,9 +23,10 @@ public class Country {
      String flagUrl;
      String basicInfo;
 
-     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
-     List<SportDetail> details;
+     @OneToMany(mappedBy = "country")
+     @Builder.Default
+     List<SportDetail> ownSports = new ArrayList<>();
 
-     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+     @OneToMany(mappedBy = "country")
      List<Medal> medals;
 }

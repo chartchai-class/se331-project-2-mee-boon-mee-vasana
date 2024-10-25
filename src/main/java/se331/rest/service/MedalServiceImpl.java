@@ -8,6 +8,8 @@ import se331.rest.DAO.MedalDao;
 import se331.rest.entity.Medal;
 import se331.rest.repository.MedalRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MedalServiceImpl implements MedalService {
@@ -25,5 +27,10 @@ final MedalDao medalDao;
     @Override
     public void deleteMedal(Long id) {
         medalDao.deleteMedal(id);
+    }
+
+    @Override
+    public List<Medal> getAllMedals() {
+        return medalDao.getAllMedals();
     }
 }

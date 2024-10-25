@@ -10,6 +10,6 @@ public interface MedalDao {
     Page<Medal> getMedals(Pageable pageable);
     Medal saveMedal(Medal medal);
     void deleteMedal(Long id);
-
+    List<Medal> getAllMedals();
 
 }

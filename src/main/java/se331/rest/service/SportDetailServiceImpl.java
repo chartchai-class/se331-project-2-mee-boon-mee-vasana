@@ -35,4 +35,9 @@ public class SportDetailServiceImpl implements SportDetailService {
     public void deleteSport(Long id) {
         sportDetailDao.deleteSport(id);
     }
+
+    @Override
+    public List<SportDetail> getAllSports() {
+        return sportDetailDao.getAllSports();
+    }
 }

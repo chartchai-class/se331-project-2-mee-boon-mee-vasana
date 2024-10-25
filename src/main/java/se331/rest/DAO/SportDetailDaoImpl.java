@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import se331.rest.entity.SportDetail;
 import se331.rest.repository.SportDetailRepository;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
@@ -33,5 +34,10 @@ public class SportDetailDaoImpl implements SportDetailDao {
     public void deleteSport(Long id) {
         sportDetailRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<SportDetail> getAllSports() {
+        return sportDetailRepository.findAll();
     }
 }
