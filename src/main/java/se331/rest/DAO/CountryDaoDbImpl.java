@@ -23,6 +23,10 @@ public class CountryDaoDbImpl implements CountryDao  {
     public Page<Country> getAllCountries(Integer pageSize, Integer page) {
         return countryRepository.findAll(PageRequest.of(page -1, pageSize));
     }
+    @Override
+    public Page<Country> getAllCountries(String name,Pageable pageable) {
+        return countryRepository.findByNameIgnoreCaseContaining(name,pageable);
+    }
 
     @Override
     public Country getCountryById(Long id) {

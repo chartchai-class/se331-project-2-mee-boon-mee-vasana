@@ -10,7 +10,7 @@ import se331.rest.entity.Medal;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-25T12:18:05+0700",
+    date = "2024-10-25T13:21:39+0700",
     comments = "version: 1.6.0, compiler: javac, environment: Java 21.0.3 (Eclipse Adoptium)"
 )
 public class EntityMapperImpl implements EntityMapper {
@@ -27,7 +27,7 @@ public class EntityMapperImpl implements EntityMapper {
         countryDTO.name( country.getName() );
         countryDTO.nocCode( country.getNocCode() );
         countryDTO.flagUrl( country.getFlagUrl() );
-        countryDTO.description( country.getDescription() );
+        countryDTO.basicInfo( country.getBasicInfo() );
         countryDTO.medals( medalListToMedalDTOList( country.getMedals() ) );
 
         return countryDTO.build();
@@ -53,6 +53,11 @@ public class EntityMapperImpl implements EntityMapper {
         }
 
         MedalDTO.MedalDTOBuilder medalDTO = MedalDTO.builder();
+
+        medalDTO.id( medal.getId() );
+        medalDTO.goldCount( medal.getGoldCount() );
+        medalDTO.silverCount( medal.getSilverCount() );
+        medalDTO.bronzeCount( medal.getBronzeCount() );
 
         return medalDTO.build();
     }

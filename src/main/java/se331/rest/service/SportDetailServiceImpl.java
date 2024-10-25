@@ -15,13 +15,24 @@ import java.util.List;
 public class SportDetailServiceImpl implements SportDetailService {
     final SportDetailDao sportDetailDao;
 
+
     @Override
-    public List<SportDetail> getAllSportDetails() {
-        return sportDetailDao.getSportDetail(Pageable.unpaged()).getContent();
+    public Page<SportDetail> getSports(Pageable pageRequest) {
+        return sportDetailDao.getSports(pageRequest);
     }
 
     @Override
-    public Page<SportDetail> getSportDetails(Integer page, Integer pageSize) {
-        return sportDetailDao.getSportDetail(PageRequest.of(page, pageSize));
+    public SportDetail getSportById(Long id) {
+        return sportDetailDao.getSportById(id);
+    }
+
+    @Override
+    public SportDetail saveSport(SportDetail sport) {
+        return sportDetailDao.saveSport(sport);
+    }
+
+    @Override
+    public void deleteSport(Long id) {
+        sportDetailDao.deleteSport(id);
     }
 }

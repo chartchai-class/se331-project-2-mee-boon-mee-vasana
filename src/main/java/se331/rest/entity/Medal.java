@@ -25,6 +25,5 @@ public class Medal {
 
     @ManyToOne
     @JoinColumn(name = "sport_detail_id")
-    SportDetail sport;
-
+    SportDetail sportDetail;
 }

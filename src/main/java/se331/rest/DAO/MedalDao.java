@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface MedalDao {
     Page<Medal> getMedals(Pageable pageable);
-//    List<Medal> getMedalsByCountry(Long countryId);
     Medal saveMedal(Medal medal);
     void deleteMedal(Long id);
 

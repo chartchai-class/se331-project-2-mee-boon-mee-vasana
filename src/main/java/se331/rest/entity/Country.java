@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Country {
      @Id
-             @GeneratedValue(strategy = GenerationType.IDENTITY)
-             @EqualsAndHashCode.Exclude
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @EqualsAndHashCode.Exclude
      Long id;
 
      String name;
@@ -22,9 +22,9 @@ public class Country {
      String flagUrl;
      String basicInfo;
 
-     @OneToMany(mappedBy = "country")
-     List<SportDetail> detail;
+     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+     List<SportDetail> details;
 
-     @OneToMany(mappedBy = "country")
+     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
      List<Medal> medals;
 }

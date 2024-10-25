@@ -35,12 +35,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent>{
         Country country3 = countryRepository.save(Country.builder().name("Japan").basicInfo("East Asian country").build());
 
         // Create medals for countries
-        medalRepository.save(Medal.builder().country(country1).sport(sport1).goldCount(1).silverCount(2).bronzeCount(1).build());
-        medalRepository.save(Medal.builder().country(country1).sport(sport2).goldCount(0).silverCount(1).bronzeCount(2).build());
-        medalRepository.save(Medal.builder().country(country2).sport(sport1).goldCount(5).silverCount(3).bronzeCount(2).build());
-        medalRepository.save(Medal.builder().country(country2).sport(sport3).goldCount(3).silverCount(1).bronzeCount(0).build());
-        medalRepository.save(Medal.builder().country(country3).sport(sport2).goldCount(2).silverCount(2).bronzeCount(1).build());
-        medalRepository.save(Medal.builder().country(country3).sport(sport3).goldCount(1).silverCount(0).bronzeCount(2).build());
+        medalRepository.save(Medal.builder().country(country1).sportDetail(sport1).goldCount(1).silverCount(2).bronzeCount(1).build());
+        medalRepository.save(Medal.builder().country(country1).sportDetail(sport2).goldCount(0).silverCount(1).bronzeCount(2).build());
+        medalRepository.save(Medal.builder().country(country2).sportDetail(sport1).goldCount(5).silverCount(3).bronzeCount(2).build());
+        medalRepository.save(Medal.builder().country(country2).sportDetail(sport3).goldCount(3).silverCount(1).bronzeCount(0).build());
+        medalRepository.save(Medal.builder().country(country3).sportDetail(sport2).goldCount(2).silverCount(2).bronzeCount(1).build());
+        medalRepository.save(Medal.builder().country(country3).sportDetail(sport3).goldCount(1).silverCount(0).bronzeCount(2).build());
 
     }
 }

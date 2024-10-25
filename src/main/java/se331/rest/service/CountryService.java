@@ -8,10 +8,10 @@ import se331.rest.entity.Country;
 import java.util.List;
 
 public interface CountryService {
-    CountryDTO getCountryById(Long id);
-    List<CountryDTO> getAllCountries();
-    CountryDTO addCountry(CountryDTO countryDTO);
-    CountryDTO updateCountry(Long id, CountryDTO countryDTO);
-    void deleteCountry(Long id);
+    Page<Country> getAllCountries(String name,Pageable pageable);
+    Page<Country> getAllCountries(Integer pageSize, Integer page);
 
+    Country getCountryById(Long id);
+    Country saveCountry(Country country);
+    void deleteCountry(Long id);
 }
