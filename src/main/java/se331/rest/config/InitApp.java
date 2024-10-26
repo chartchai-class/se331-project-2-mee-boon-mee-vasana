@@ -4,14 +4,22 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import se331.rest.entity.Comment;
 import se331.rest.entity.Country;
 import se331.rest.entity.Medal;
 import se331.rest.entity.SportDetail;
+import se331.rest.repository.CommentRepository;
 import se331.rest.repository.CountryRepository;
 import se331.rest.repository.MedalRepository;
 import se331.rest.repository.SportDetailRepository;
+import se331.rest.security.user.Role;
+import se331.rest.security.user.User;
+import se331.rest.security.user.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,10 +30,16 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final CountryRepository countryRepository;
     final MedalRepository medalRepository;
     final SportDetailRepository sportRepository;
+    final UserRepository userRepository;
+    final CommentRepository commentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
+        addUser();
+        addComments();
         // Create countries and related data based on the Tokyo 2020 Olympics
+
 
         // United States
         Country usa = createCountry("United States", "USA", "US.svg", "The United States of America is a federal republic consisting of 50 states.");
@@ -499,5 +513,74 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         countryRepository.save(country);
         country.setOwnSports(new ArrayList<>());
         return country;
+    }
+    private void addUser(){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // Create an administrator user
+        User adminUser = User.builder()
+                .firstname("Admin")
+                .lastname("Admin")
+                .username("admin")
+                .email("admin@example.com")
+                .password(passwordEncoder.encode("adminpass"))
+                .enabled(true)
+                .build();
+
+// Create registered users
+        User user1 = User.builder()
+                .firstname("John")
+                .lastname("Doe")
+                .username("johndoe")
+                .email("john.doe@example.com")
+                .password(passwordEncoder.encode("password123"))
+                .enabled(true)
+                .build();
+
+        User user2 = User.builder()
+                .firstname("Jane")
+                .lastname("Smith")
+                .username("janesmith")
+                .email("jane.smith@example.com")
+                .password(passwordEncoder.encode("password456"))
+                .enabled(true)
+                .build();
+
+        adminUser.getRoles().add(Role.ROLE_USER);
+        adminUser.getRoles().add(Role.ROLE_ADMIN);
+
+        user1.getRoles().add(Role.ROLE_USER);
+        user2.getRoles().add(Role.ROLE_USER);
+
+
+        userRepository.save(adminUser);
+        userRepository.save(user1);
+        userRepository.save(user2);
+    }
+    private void addComments() {
+        // Fetch users and countries from repositories
+        User user1 = userRepository.findByUsername("johndoe").orElse(null);
+        User user2 = userRepository.findByUsername("janesmith").orElse(null);
+        Country usa = countryRepository.findByName("United States").orElse(null);
+        Country china = countryRepository.findByName("China").orElse(null);
+
+        if (user1 != null && usa != null) {
+            Comment comment1 = Comment.builder()
+                    .content("Congratulations to the USA team!")
+                    .timestamp(LocalDateTime.now())
+                    .user(user1)
+                    .country(usa)
+                    .build();
+            commentRepository.save(comment1);
+        }
+
+        if (user2 != null && china != null) {
+            Comment comment2 = Comment.builder()
+                    .content("Well done, China!")
+                    .timestamp(LocalDateTime.now())
+                    .user(user2)
+                    .country(china)
+                    .build();
+            commentRepository.save(comment2);
+        }
     }
 }

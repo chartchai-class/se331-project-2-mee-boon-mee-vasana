@@ -30,4 +30,8 @@ public class Country {
      @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
      @Builder.Default
      List<Medal> medals = new ArrayList<>();
+
+     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+     @Builder.Default
+     List<Comment> comments = new ArrayList<>();
 }

@@ -4,9 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import se331.rest.DTO.CommentDTO;
 import se331.rest.DTO.CountryDTO;
 import se331.rest.DTO.MedalDTO;
 import se331.rest.DTO.SportDetailDTO;
+import se331.rest.entity.Comment;
 import se331.rest.entity.Country;
 import se331.rest.entity.Medal;
 import se331.rest.entity.SportDetail;
@@ -29,5 +31,9 @@ public interface EntityMapper {
     //Sport DTO
     SportDetailDTO getSportDetailDTO(SportDetail sportDetail);
     List<SportDetailDTO> getSportDetailDTO(List<SportDetail> sportDetails);
+
+    //Comment DTO
+    CommentDTO getCommentDTO(Comment comment);
+    List<CommentDTO> getCommentDTO(List<Comment> comments);
 
 }

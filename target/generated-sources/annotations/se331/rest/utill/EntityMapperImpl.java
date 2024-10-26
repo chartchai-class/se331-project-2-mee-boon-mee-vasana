@@ -1,19 +1,25 @@
 package se331.rest.utill;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import se331.rest.DTO.CommentDTO;
 import se331.rest.DTO.CountryDTO;
 import se331.rest.DTO.CountryOwnSportDTO;
 import se331.rest.DTO.MedalDTO;
 import se331.rest.DTO.SportDetailDTO;
+import se331.rest.DTO.UserDTO;
+import se331.rest.entity.Comment;
 import se331.rest.entity.Country;
 import se331.rest.entity.Medal;
 import se331.rest.entity.SportDetail;
+import se331.rest.security.user.Role;
+import se331.rest.security.user.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-25T21:32:55+0700",
+    date = "2024-10-26T17:21:42+0700",
     comments = "version: 1.6.0, compiler: javac, environment: Java 21.0.3 (Eclipse Adoptium)"
 )
 public class EntityMapperImpl implements EntityMapper {
@@ -111,6 +117,38 @@ public class EntityMapperImpl implements EntityMapper {
         return list;
     }
 
+    @Override
+    public CommentDTO getCommentDTO(Comment comment) {
+        if ( comment == null ) {
+            return null;
+        }
+
+        CommentDTO.CommentDTOBuilder commentDTO = CommentDTO.builder();
+
+        commentDTO.id( comment.getId() );
+        commentDTO.content( comment.getContent() );
+        if ( comment.getTimestamp() != null ) {
+            commentDTO.timestamp( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( comment.getTimestamp() ) );
+        }
+        commentDTO.user( userToUserDTO( comment.getUser() ) );
+
+        return commentDTO.build();
+    }
+
+    @Override
+    public List<CommentDTO> getCommentDTO(List<Comment> comments) {
+        if ( comments == null ) {
+            return null;
+        }
+
+        List<CommentDTO> list = new ArrayList<CommentDTO>( comments.size() );
+        for ( Comment comment : comments ) {
+            list.add( getCommentDTO( comment ) );
+        }
+
+        return list;
+    }
+
     protected CountryOwnSportDTO sportDetailToCountryOwnSportDTO(SportDetail sportDetail) {
         if ( sportDetail == null ) {
             return null;
@@ -137,5 +175,36 @@ public class EntityMapperImpl implements EntityMapper {
         }
 
         return list1;
+    }
+
+    protected List<String> roleListToStringList(List<Role> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<String> list1 = new ArrayList<String>( list.size() );
+        for ( Role role : list ) {
+            list1.add( role.name() );
+        }
+
+        return list1;
+    }
+
+    protected UserDTO userToUserDTO(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
+
+        userDTO.id( user.getId() );
+        userDTO.firstname( user.getFirstname() );
+        userDTO.lastname( user.getLastname() );
+        userDTO.username( user.getUsername() );
+        userDTO.email( user.getEmail() );
+        userDTO.enabled( user.getEnabled() );
+        userDTO.roles( roleListToStringList( user.getRoles() ) );
+
+        return userDTO.build();
     }
 }
