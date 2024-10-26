@@ -33,6 +33,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests((authorize) -> {
                 authorize.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/countries").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/countries/{id}").permitAll()
+
 
 
 
