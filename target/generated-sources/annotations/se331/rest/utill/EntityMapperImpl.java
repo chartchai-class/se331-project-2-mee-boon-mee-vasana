@@ -19,7 +19,7 @@ import se331.rest.security.user.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-26T17:21:42+0700",
+    date = "2024-10-26T19:31:26+0700",
     comments = "version: 1.6.0, compiler: javac, environment: Java 21.0.3 (Eclipse Adoptium)"
 )
 public class EntityMapperImpl implements EntityMapper {
