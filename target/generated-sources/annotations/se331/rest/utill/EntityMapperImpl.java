@@ -13,7 +13,7 @@ import se331.rest.entity.SportDetail;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-25T17:12:11+0700",
+    date = "2024-10-25T21:32:55+0700",
     comments = "version: 1.6.0, compiler: javac, environment: Java 21.0.3 (Eclipse Adoptium)"
 )
 public class EntityMapperImpl implements EntityMapper {

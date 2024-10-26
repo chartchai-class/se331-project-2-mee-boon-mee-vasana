@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import se331.rest.entity.Country;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CountryRepository extends JpaRepository<Country, Long> {
     List<Country> findAll();
     Page<Country> findByNameIgnoreCaseContaining(String name, Pageable pageable);
+    Optional<Country> findByName(String name);
 }

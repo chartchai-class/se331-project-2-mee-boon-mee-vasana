@@ -1,5 +1,6 @@
 package se331.rest.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import se331.rest.DTO.CountryDTO;
 import se331.rest.entity.Country;
+import se331.rest.entity.Medal;
+import se331.rest.entity.SportDetail;
 import se331.rest.service.CountryService;
 import se331.rest.utill.EntityMapper;
 import org.springframework.web.server.ResponseStatusException;
@@ -60,8 +64,29 @@ public class CountryController {
     // POST - Add a new country
     @PostMapping("/countries")
     public ResponseEntity<?> addCountry(@RequestBody Country country) {
+        // Set the country reference in ownSports
+        for (SportDetail sportDetail : country.getOwnSports()) {
+            sportDetail.setCountry(country);
+
+            // Set the sportDetail reference in medals within sportDetail
+            for (Medal medal : sportDetail.getMedals()) {
+                medal.setSportDetail(sportDetail);
+                // Optionally set country in medal if necessary
+                medal.setCountry(country);
+            }
+        }
+
+        // Set the country reference in medals directly under country
+        for (Medal medal : country.getMedals()) {
+            medal.setCountry(country);
+            // If these medals are associated with a sportDetail, set it
+            // medal.setSportDetail(associatedSportDetail);
+        }
+
         Country savedCountry = countryService.saveCountry(country);
         return ResponseEntity.ok(EntityMapper.INSTANCE.getCountryDTO(savedCountry));
     }
+
+
 
 }

@@ -23,10 +23,11 @@ public class Country {
      String flagUrl;
      String basicInfo;
 
-     @OneToMany(mappedBy = "country")
+     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
      @Builder.Default
      List<SportDetail> ownSports = new ArrayList<>();
 
-     @OneToMany(mappedBy = "country")
-     List<Medal> medals;
+     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+     @Builder.Default
+     List<Medal> medals = new ArrayList<>();
 }

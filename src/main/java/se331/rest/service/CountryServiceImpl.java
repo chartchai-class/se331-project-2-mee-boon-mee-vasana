@@ -1,5 +1,6 @@
 package se331.rest.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,17 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    @Transactional
     public Country saveCountry(Country country) {
+
+//        if (country.getName() != null && countryDao.getCountryByName(country.getName()) != null) {
+//            throw new IllegalArgumentException("Country name:  " + country.getName() + " already exists.");
+//        }
+//
+//        // Save the new country using the DAO layer
         return countryDao.saveCountry(country);
     }
+
 
     @Override
     public void deleteCountry(Long id) {
