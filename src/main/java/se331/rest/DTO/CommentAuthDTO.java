@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se331.rest.entity.Country;
 import se331.rest.security.user.Role;
 
 import java.time.LocalDateTime;
@@ -19,4 +20,5 @@ public class CommentAuthDTO {
     String content;
     LocalDateTime timestamp;
     List<Role> roles = new ArrayList<>();
+    List<Country> name = new ArrayList<>();
 }

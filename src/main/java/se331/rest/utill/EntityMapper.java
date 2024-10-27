@@ -2,16 +2,14 @@ package se331.rest.utill;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-import se331.rest.DTO.CommentDTO;
-import se331.rest.DTO.CountryDTO;
-import se331.rest.DTO.MedalDTO;
-import se331.rest.DTO.SportDetailDTO;
+import se331.rest.DTO.*;
 import se331.rest.entity.Comment;
 import se331.rest.entity.Country;
 import se331.rest.entity.Medal;
 import se331.rest.entity.SportDetail;
+import se331.rest.security.user.User;
+import se331.rest.security.user.UserDTO;
 
 import java.util.List;
 
@@ -34,6 +32,12 @@ public interface EntityMapper {
 
     //Comment DTO
     CommentDTO getCommentDTO(Comment comment);
-    List<CommentDTO> getCommentDTO(List<Comment> comments);
+
+    @Mapping(target = "roles", expression = "java(user.getRoles().stream().map(Enum::name).collect(java.util.stream.Collectors.toList()))")
+    UserDTO getUserDTO(User user);
+
+//    @Mapping(target = "roles", source = "user.roles")
+//    CommentAuthDTO getCommentAuthDTO(Comment comment);
+
 
 }

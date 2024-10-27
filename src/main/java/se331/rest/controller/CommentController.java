@@ -12,6 +12,7 @@ import se331.rest.service.CommentService;
 import se331.rest.service.CountryService;
 import se331.rest.utill.EntityMapper;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequestMapping("/comments")
@@ -32,7 +33,7 @@ public class CommentController {
     public ResponseEntity<List<CommentDTO>> getCommentsByCountry(@PathVariable Long countryId) {
         Country country = countryService.getCountryById(countryId);
         List<Comment> comments = commentService.getCommentsByCountry(country);
-        List<CommentDTO> commentDTOs = EntityMapper.INSTANCE.getCommentDTO(comments);
+        List<CommentDTO> commentDTOs = Collections.singletonList(EntityMapper.INSTANCE.getCommentDTO((Comment) comments));
         return ResponseEntity.ok(commentDTOs);
     }
 

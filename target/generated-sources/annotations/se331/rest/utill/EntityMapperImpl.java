@@ -9,17 +9,17 @@ import se331.rest.DTO.CountryDTO;
 import se331.rest.DTO.CountryOwnSportDTO;
 import se331.rest.DTO.MedalDTO;
 import se331.rest.DTO.SportDetailDTO;
-import se331.rest.DTO.UserDTO;
 import se331.rest.entity.Comment;
 import se331.rest.entity.Country;
 import se331.rest.entity.Medal;
 import se331.rest.entity.SportDetail;
 import se331.rest.security.user.Role;
 import se331.rest.security.user.User;
+import se331.rest.security.user.UserDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-26T19:31:26+0700",
+    date = "2024-10-27T11:21:26+0700",
     comments = "version: 1.6.0, compiler: javac, environment: Java 21.0.3 (Eclipse Adoptium)"
 )
 public class EntityMapperImpl implements EntityMapper {
@@ -136,17 +136,22 @@ public class EntityMapperImpl implements EntityMapper {
     }
 
     @Override
-    public List<CommentDTO> getCommentDTO(List<Comment> comments) {
-        if ( comments == null ) {
+    public UserDTO getUserDTO(User user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<CommentDTO> list = new ArrayList<CommentDTO>( comments.size() );
-        for ( Comment comment : comments ) {
-            list.add( getCommentDTO( comment ) );
-        }
+        UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
 
-        return list;
+        userDTO.id( user.getId() );
+        userDTO.firstname( user.getFirstname() );
+        userDTO.lastname( user.getLastname() );
+        userDTO.username( user.getUsername() );
+        userDTO.comments( commentListToCommentDTOList( user.getComments() ) );
+
+        userDTO.roles( user.getRoles().stream().map(Enum::name).collect(java.util.stream.Collectors.toList()) );
+
+        return userDTO.build();
     }
 
     protected CountryOwnSportDTO sportDetailToCountryOwnSportDTO(SportDetail sportDetail) {
@@ -190,12 +195,12 @@ public class EntityMapperImpl implements EntityMapper {
         return list1;
     }
 
-    protected UserDTO userToUserDTO(User user) {
+    protected se331.rest.DTO.UserDTO userToUserDTO(User user) {
         if ( user == null ) {
             return null;
         }
 
-        UserDTO.UserDTOBuilder userDTO = UserDTO.builder();
+        se331.rest.DTO.UserDTO.UserDTOBuilder userDTO = se331.rest.DTO.UserDTO.builder();
 
         userDTO.id( user.getId() );
         userDTO.firstname( user.getFirstname() );
@@ -206,5 +211,18 @@ public class EntityMapperImpl implements EntityMapper {
         userDTO.roles( roleListToStringList( user.getRoles() ) );
 
         return userDTO.build();
+    }
+
+    protected List<CommentDTO> commentListToCommentDTOList(List<Comment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CommentDTO> list1 = new ArrayList<CommentDTO>( list.size() );
+        for ( Comment comment : list ) {
+            list1.add( getCommentDTO( comment ) );
+        }
+
+        return list1;
     }
 }

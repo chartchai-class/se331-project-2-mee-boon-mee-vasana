@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se331.rest.entity.Comment;
 import se331.rest.security.config.JwtService;
 import se331.rest.security.token.Token;
 import se331.rest.security.token.TokenRepository;
@@ -18,6 +19,7 @@ import se331.rest.security.token.TokenType;
 import se331.rest.security.user.Role;
 import se331.rest.security.user.User;
 import se331.rest.security.user.UserRepository;
+import se331.rest.utill.EntityMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -66,6 +68,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
+            .user(EntityMapper.INSTANCE.getUserDTO(user))
             .build();
   }
 
