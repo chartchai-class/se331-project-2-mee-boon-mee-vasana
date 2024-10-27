@@ -32,10 +32,9 @@ public class SecurityConfiguration {
             .csrf((crsf) -> crsf.disable())
             .authorizeHttpRequests((authorize) -> {
                 authorize.requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/countries").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/countries/{id}").permitAll()
-
-
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
 
 
                         .anyRequest().authenticated();

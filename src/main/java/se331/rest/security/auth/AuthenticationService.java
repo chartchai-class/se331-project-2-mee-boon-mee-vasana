@@ -39,6 +39,8 @@ public class AuthenticationService {
             .lastname(request.getLastname())
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
+            .username(request.getUsername())
+            .enabled(true)  // Set the user as enabled
             .roles(List.of(Role.ROLE_USER))
             .build();
     var savedUser = repository.save(user);

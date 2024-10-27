@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import se331.rest.entity.Comment;
 import se331.rest.security.token.Token;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -49,6 +50,7 @@ public class User implements UserDetails {
   @Builder.Default
   List<Comment> comments = new ArrayList<>();
 
+  private LocalDateTime timestamp;
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
